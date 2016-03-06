@@ -24,6 +24,7 @@ public class AchievementsController : MonoBehaviour
         LoadGame();
 
         // Authenticate player on Game Center ASAP
+		Prime31.GameCenterBinding.authenticateLocalPlayer();
     }
 
     public int AddScore (int value)
