@@ -25,6 +25,9 @@ public class AchievementsController : MonoBehaviour
 
         // Authenticate player on Game Center ASAP
 		Prime31.GameCenterBinding.authenticateLocalPlayer();
+		Prime31.GameCenterBinding.showCompletionBannerForAchievements ();
+		Prime31.GameCenterManager.reportScoreFailedEvent += reportScoreFailed;
+		Prime31.GameCenterManager.reportScoreFinishedEvent += reportScoreFinished;
     }
 
     public int AddScore (int value)
@@ -33,6 +36,7 @@ public class AchievementsController : MonoBehaviour
         UpdateScore();
         
         // Report our total score for leaderboard
+		Prime31.GameCenterBinding.reportScore(Score, "Gold");
 
         return Score;
     }
@@ -53,4 +57,15 @@ public class AchievementsController : MonoBehaviour
     {
         ScoreTextMesh.text = Score + " gold";
     }
+
+	void reportScoreFinished(string message)
+	{
+		Debug.Log( "resetAchievementsFinishedEvent: " + message );
+	}
+
+
+	void reportScoreFailed( string error )
+	{
+		Debug.Log( "resetAchievementsFailedEvent: " + error );
+	}
 }

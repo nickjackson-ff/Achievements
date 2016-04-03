@@ -4,15 +4,18 @@ public class ReportAchievementOnClick : MonoBehaviour
 {
     public string Identifier;
 
-    void OnMouseDown()
-    {
+	void Awake()
+	{
 		Prime31.GameCenterManager.reportAchievementFailedEvent += reportAchievementFailed;
 		Prime31.GameCenterManager.reportAchievementFinishedEvent += reportAchievementFinished;
+	}
+
+    void OnMouseDown()
+    {
 		// Report progress percentage toward achievement
 		if (Prime31.GameCenterBinding.isPlayerAuthenticated()) 
 		{
 			Prime31.GameCenterBinding.reportAchievement (Identifier, 100.0f);
-			Prime31.GameCenterBinding.showCompletionBannerForAchievements ();
 		}
 
 		else
